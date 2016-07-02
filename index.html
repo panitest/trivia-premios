@@ -83,18 +83,22 @@ DR(inicio);
 function validar(){
 	if($('nombre').value.length<2){
 		alert('Por favor completá el campo nombre');
+		$('nombre').focus();
 		return;
 	}
 	if($('apellido').value.length<2){
 		alert('Por favor completá el campo apellido');
+		$('apellido').focus();
 		return;
 	}
 	if($('email').value.length<2){
 		alert('Por favor completá el campo e-mail');
+		$('email').focus();
 		return;
 	}
 	if($('email').value.indexOf('@')==-1 || $('email').value.indexOf('.')==-1){
 		alert('El e-mail ingresado es incorrecto');
+		$('email').focus();
 		return;
 	}
 	var usuario={};
