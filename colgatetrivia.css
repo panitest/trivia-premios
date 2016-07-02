@@ -1,0 +1,51 @@
+*{ margin:0; padding:0;}
+
+html, body {  width:100%; height:100%;background: url(images/back-trivia-colgate.jpg) center top repeat;
+    font-family: 'colgate_readyregular'; }
+
+.colorazul{ color:#038b9a;}
+.colorrojo{ color:#e7253a;}
+
+#contenedor1{ display:block; width:966px; height:600px;  position:relative; margin:auto;}
+
+.logocolgate{ display:block; position:absolute; background:url(images/logo-central-colgate.png) center center no-repeat; width:300px; height:300px; left:50%; margin-left:-150px; top:50%; margin-top:-150px;}
+
+.cajaformulario{ display:block; position:relative; top:150px; width:100%; height:291px;}
+.lineaform{ display:block; height:97px; position:relative;}
+.f1{ background:url(images/nombre.png) no-repeat;}
+.f2{ background:url(images/apellido.png) no-repeat;}
+.f3{ background:url(images/mail.png) no-repeat;}
+
+.paraelform{
+	display: block;
+	position: absolute;
+	top: 34px;
+	left: 370px;
+	width: 590px;
+	height: 30px;
+}
+
+.form{ display:block; width: 590px; height: 30px; line-height:30px; font-size:30px; color:#999; font-family:Tahoma, Geneva, sans-serif; border:none; background:none; outline:none;}
+
+.enviar{
+	display: block;
+	position: absolute;
+	bottom: 80px; left:50%;
+	width: 118px; margin-left:-59px;
+	height: 73px;
+	background: url(images/bt_enviar.png) center center no-repeat;
+}
+
+.cabezal{ display:block; width:100%; background:url(images/cabezal.png) center top no-repeat; height:172px;}
+
+.cajarespuestas{ display:block; width:100%; height:197px; position:absolute; left:0px; bottom:65px; text-align:center;}
+
+.preguntasok{ display:inline-block; background:url(images/base-respuestas.png) center center no-repeat; width:291px; height:197px; position:relative; text-decoration:none;}
+
+.preguntassi{ display:inline-block; background: url(images/base-respuesta-correcta.png) center center no-repeat; width:291px; height:197px; position:relative; text-decoration:none;}
+
+.preguntasno{ display:inline-block; background: url(images/base-respuesta-incorrecta.png) center center no-repeat; width:291px; height:197px; position:relative; text-decoration:none;}
+
+.preguntas{ display:block; width:966px; height:147px; text-align:center; font-size:32px; background-color:#FFF; line-height:36px; }
+
+.respuestas{ font-size:20px; line-height:21px; color:#FFF; text-decoration:none; letter-spacing:-1px;}

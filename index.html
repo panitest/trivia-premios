@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Colgate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet"  href="colgatetrivia.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet"  href="font/stylesheet.css" type="text/css" charset="utf-8" />
+<style>
+#admin{ width:50px; height:50px; position:fixed; top:0; left:0; z-index:10000; background:url(images/Vacio.gif);}
+#panel{ width:100%; height:100%; position:fixed;z-index:20000; background:#CCC; display:none}
+label{ font-family:Verdana, Geneva, sans-serif; font-size:14px; color:#000; width:80%; margin:auto; display:block; margin-top:30px}
+input[type="button"]{ width:30%; height:50px; margin:auto; display:block}
+#log{ font-family:Verdana, Geneva, sans-serif; font-size:12px; text-align:center}
+</style>
+<script type="text/javascript" src="js/panino.js"></script>
+<script type="text/javascript" src="js/comunes.js"></script>
+<script type="text/javascript" src="js/paninoAJAX.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/transicion.js"></script>
+<script>
+ns.preguntas=[
+	{//1
+	'pregunta':'¿EXISTEN MAS PRODUCTOS DE COLGATE® PARA LA</span><br /><span class="colorazul">SENSIBILIDAD DENTAL ADEMAS DE LAS CREMAS DENTALES?',
+	'a':'SÍ, ENJUAGUE Y CEPILLO',
+	'b':'SÍ, SOLAMENTE ENJUAGUE',
+	'c':'SÍ, SOLAMENTE CEPILLO',
+	'corecta':'a'
+	},
+	{//2
+	'pregunta':'¿PUEDO CEPILLARME CON LA CREMA</span><br /><span class="colorazul">COLGATE SENSITIVE PRO ALIVIO DE FORMA DIARIA?',
+	'a':'SÍ, LA CREMA<br>COLGATE SENSITIVE<br>PRO ALIVIO<br>ES DE USO DIARIO',
+	'b':'NO, SOLAMENTE SE UTILIZA<br>ANTE DOLORES<br>POR LA SENSIBILIDAD',
+	'corecta':'a'
+	},
+	{//3
+	'pregunta':'¿CON QUÉ VARIEDAD DE COLGATE PRO ALIVIO PUEDO</span><br /><span class="colorazul">ALIVIAR LA SENSIBILIDAD Y BLANQUEAR MIS DIENTES?',
+	'a':'COLGATE SENSITIVE<br>PRO ALIVIO<br>MULTIPROTECCIÓN',
+	'b':'COLGATE SENSITIVE<br>PRO ALIVIO<br>REAL WHITE',
+	'c':'COLGATE SENSITIVE<br>PRO ALIVIO<br>REPARA ESMALTE',
+	'corecta':'b'
+	}
+];
+function getPage(p,callback){
+		request(
+			p,
+			function(r){
+				$('contenedor1').innerHTML=r;
+				if(typeof callback=='function'){
+					callback();
+				}
+			},
+			{}
+		);
+}
+function getRandomInt(min, max) {
+    	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function inArray(needle, haystack) {
+    var length = haystack.length;
+    for(var i = 0; i < length; i++) {
+        if(haystack[i] == needle) return true;
+    }
+    return false;
+}
+function inicio(){
+	if(!localStorage.getItem('datos')){
+		ns.datos=[];
+	}else{
+		ns.datos=JSON.parse(localStorage.getItem('datos'));
+	}
+	if(!localStorage.getItem('tablet')){
+		ns.tablet=getRandomInt(1, 100)+'_'+(+new Date());
+		localStorage.setItem('tablet',ns.tablet);
+	}else{
+		ns.tablet=localStorage.getItem('tablet');
+	}
+}
+DR(inicio);
+function validar(){
+	if($('nombre').value.length<2){
+		alert('Por favor completá el campo nombre');
+		return;
+	}
+	if($('apellido').value.length<2){
+		alert('Por favor completá el campo apellido');
+		return;
+	}
+	if($('email').value.length<2){
+		alert('Por favor completá el campo e-mail');
+		return;
+	}
+	if($('email').value.indexOf('@')==-1 || $('email').value.indexOf('.')==-1){
+		alert('El e-mail ingresado es incorrecto');
+		return;
+	}
+	var usuario={};
+	usuario['nombre']=$('nombre').value;
+	usuario['apellido']=$('apellido').value;
+	usuario['email']=$('email').value;
+	usuario['tablet']=ns.tablet;
+	ns.datos.push(usuario);
+	localStorage.setItem('datos',JSON.stringify(ns.datos));
+	getPreguntas();
+}
+function getPreguntas(){
+	ns.preg=[];
+	ns.correctas=0;
+	ns.incorrectas=0;
+	var grupo=ns['preguntas'],pa;
+	while(ns.preg.length<3){
+		pa=grupo[getRandomInt(0, 2)];
+		if(!inArray(pa,ns.preg)){
+			ns.preg.push(pa);
+		}
+	}
+	siguientePregunta();
+}
+function siguientePregunta(){
+	if(ns.preg.length<1){
+		fin();
+		return;
+	}
+	ns.preguntaActual=ns.preg.shift();
+	getPage('preg.html',setPreguntas);
+	
+}
+function setPreguntas(){
+	$('opa').className=$('opb').className=$('opc').className='preguntasok';
+	var nro='0'+(3-parseInt(ns.preg.length,10));
+	$('pregunta').innerHTML='<span class="colorrojo">'+nro+'- '+ns.preguntaActual['pregunta']+'</span>';
+	$('opa').innerHTML='<table width="291" height="197" border="0" cellspacing="0" cellpadding="0">  <tr>    <td align="center" valign="middle" class="respuestas">'+ns.preguntaActual['a']+'</td>  </tr></table>';
+	$('opb').innerHTML='<table width="291" height="197" border="0" cellspacing="0" cellpadding="0">  <tr>    <td align="center" valign="middle" class="respuestas">'+ns.preguntaActual['b']+'</td>  </tr></table>';
+	if(ns.preguntaActual['c']){
+		$('opc').style.display='inlineBlock';
+	$('opc').innerHTML='<table width="291" height="197" border="0" cellspacing="0" cellpadding="0">  <tr>    <td align="center" valign="middle" class="respuestas">'+ns.preguntaActual['c']+'</td>  </tr></table>';
+	}else{
+		$('opc').style.display='none';
+	}
+}
+function evaluar(cual){
+	if(cual==ns.preguntaActual['corecta']){
+		ns.correctas++;
+	}else{
+		ns.incorrectas++;
+	}
+	$('opa').className=$('opb').className=$('opc').className='preguntasno';
+	$('op'+ns.preguntaActual['corecta']).className='preguntassi';
+	setTimeout(siguientePregunta,2000);
+	
+}
+function fin(){
+	if(ns.correctas==1){
+		getPage('premio1.html');
+	}else if(ns.correctas==2){
+		getPage('premio2.html');
+	}else if(ns.correctas==3){
+		getPage('premio3.html');
+	}else{
+		getPage('premio4.html');
+	}
+}
+function reiniciar(){
+	getPage('inicio.html');
+}
+
+
+
+
+function administrar(){
+	$('log').innerHTML='';
+	$('panel').style.display='block';
+}
+
+function testConexion(){
+		
+		var im=new Image(),
+		t=setTimeout(
+				function(){
+					$('log').innerHTML='No hay conexión a internet.';
+				},
+				5000
+		);
+		im.onload=function(){
+			clearTimeout(t);
+			saveDataInServer();
+			return;
+		};
+		im.onerror=function(){
+			clearTimeout(t);
+			$('log').innerHTML='No hay conexión a internet.';
+			return;
+		};
+		im.src='http://servidordeapps.com/images/ajax-loader.gif?'+(+new Date());
+		
+}
+	
+	
+function exportar(){
+	$('log').innerHTML='<img src="images/ajax-loader.gif">';
+	testConexion();
+}
+function saveDataInServer(){
+		var data={'proceso':'savedatamovistar','datos':localStorage.getItem('datos')};
+		//var data={'proceso':'ickki3p2','datos':''}
+		request(
+				'http://servidordeapps.com/proceso2.php',
+				function(r){
+					localStorage.removeItem('datos');
+					inicio();
+					$('log').innerHTML='Los datos han sido guardados.';
+				},
+				data
+		);
+}
+</script>
+</head>
+
+<body>
+<div id="admin" onClick="administrar()"></div>
+<div id="panel" style="width:100%; height:100%; position:absolute; top:0; left:0;">
+
+<div style="font-family:Verdana, Geneva, sans-serif; font-size:30px; font-weight:bold; width:80px; height:80px; position:absolute; top:0px; right:0px; text-align:center; line-height:50px; color:#000" onClick="$('panel').style.display='none';">x</div>
+
+<label><br>
+<input type="button" name="" value="Exportar Datos" onClick="exportar()">
+</label>
+<div id="log"></div>
+
+</div>
+<div id="contenedor1">
+<div class="logocolgate" onClick=" getPage('formulario.html');"></div>
+
+</div>
+</body>
+</html>

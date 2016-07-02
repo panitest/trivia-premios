@@ -1,0 +1,71 @@
+
+
+
+@font-face  {
+    font-family: 'colgate_readybold';
+    src: url('colgateready-bold-webfont.woff2') format('woff2'),
+         url('colgateready-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face  {
+    font-family: 'colgate_readybold_italic';
+    src: url('colgateready-bolditalic-webfont.woff2') format('woff2'),
+         url('colgateready-bolditalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face   {
+    font-family: 'colgate_readyitalic';
+    src: url('colgateready-italic-webfont.woff2') format('woff2'),
+         url('colgateready-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face  {
+    font-family: 'colgate_readylight';
+    src: url('colgateready-light-webfont.woff2') format('woff2'),
+         url('colgateready-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face  {
+    font-family: 'colgate_readylight_italic';
+    src: url('colgateready-lightitalic-webfont.woff2') format('woff2'),
+         url('colgateready-lightitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face   {
+    font-family: 'colgate_readyregular';
+    src: url('colgateready-regular-webfont.woff2') format('woff2'),
+         url('colgateready-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
