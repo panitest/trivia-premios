@@ -81,7 +81,8 @@ function inicio(){
 }
 DR(inicio);
 function prox(campo){
-		campo.focus();
+		document.body.focus();
+		setTimeout(function(){campo.focus();},100);
 }
 function validar(){
 	if($('nombre').value.length<2){
