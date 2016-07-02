@@ -15,6 +15,7 @@
 label{ font-family:Verdana, Geneva, sans-serif; font-size:14px; color:#000; width:80%; margin:auto; display:block; margin-top:30px}
 input[type="button"]{ width:30%; height:50px; margin:auto; display:block}
 #log{ font-family:Verdana, Geneva, sans-serif; font-size:12px; text-align:center}
+#campooculto{ width:1px; height:1px; display:none}
 </style>
 <script type="text/javascript" src="js/panino.js"></script>
 <script type="text/javascript" src="js/comunes.js"></script>
@@ -81,8 +82,10 @@ function inicio(){
 }
 DR(inicio);
 function prox(campo){
-		document.body.focus();
-		setTimeout(function(){campo.focus();},100);
+		$('campooculto').style.display='block';
+		$('campooculto').focus();
+		$('campooculto').style.display='none';
+		//setTimeout(function(){campo.focus();},100);
 }
 function validar(){
 	if($('nombre').value.length<2){
@@ -239,6 +242,7 @@ function saveDataInServer(){
 <div id="log"></div>
 
 </div>
+<input id="campooculto" type="text">
 <div id="contenedor1">
 <div class="logocolgate" onClick=" getPage('formulario.html');"></div>
 
